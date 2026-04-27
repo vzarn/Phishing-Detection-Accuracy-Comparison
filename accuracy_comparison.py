@@ -1,49 +1,70 @@
 import matplotlib.pyplot as plt
 
-# Data
-media_agencies = [5, 10, 15, 20]
+# Algorithms and reported accuracy values
+algorithms = [
+    "Decision Tree",
+    "Random Forest",
+    "SVM",
+    "Logistic Regression",
+    "Naive Bayes"
+]
 
-centralized_fl = [97.58, 96.8, 95.23, 93.51]
-decentralized_fl = [97.3, 96.57, 95.09, 93.12]
+accuracy_study_1 = [96.0, 97.3, 95.8, 94.2, 93.5]
+accuracy_study_2 = [96.3, 97.1, 93.9, 92.7, 60.1]
+
+# X-axis positions
+x = range(len(algorithms))
+bar_width = 0.35
 
 # Create chart
-plt.figure(figsize=(6, 4))
+plt.figure(figsize=(10, 6))
 
-plt.plot(
-    media_agencies,
-    centralized_fl,
-    marker='o',
-    label='Centralized FL'
+plt.bar(
+    [i - bar_width / 2 for i in x],
+    accuracy_study_1,
+    width=bar_width,
+    label="Study 1"
 )
 
-plt.plot(
-    media_agencies,
-    decentralized_fl,
-    marker='o',
-    label='Decentralized FL'
+plt.bar(
+    [i + bar_width / 2 for i in x],
+    accuracy_study_2,
+    width=bar_width,
+    label="Study 2"
 )
 
 # Add value labels
-for x, y in zip(media_agencies, centralized_fl):
-    plt.text(x, y + 0.15, str(y), ha='center', fontsize=8)
+for i, value in enumerate(accuracy_study_1):
+    plt.text(
+        i - bar_width / 2,
+        value + 0.5,
+        f"{value}%",
+        ha="center",
+        fontsize=9
+    )
 
-for x, y in zip(media_agencies, decentralized_fl):
-    plt.text(x, y - 0.35, str(y), ha='center', fontsize=8)
+for i, value in enumerate(accuracy_study_2):
+    plt.text(
+        i + bar_width / 2,
+        value + 0.5,
+        f"{value}%",
+        ha="center",
+        fontsize=9
+    )
 
-# Chart labels
-plt.title('Accuracy Comparison')
-plt.xlabel('Number of Media Agency')
-plt.ylabel('Accuracy (%)')
+# Chart details
+plt.title("Accuracy Comparison of ML Algorithms for Phishing Website Detection")
+plt.xlabel("Machine Learning Algorithms")
+plt.ylabel("Accuracy (%)")
 
-# Axis range
-plt.ylim(86, 100)
+plt.xticks(x, algorithms, rotation=20)
+plt.ylim(50, 100)
 
-# Grid and legend
-plt.grid(True)
+plt.grid(axis="y", linestyle="--", alpha=0.6)
 plt.legend()
 
-# Save image
-plt.savefig('accuracy_comparison.png', dpi=300, bbox_inches='tight')
+# Save chart as image
+plt.savefig("ml_accuracy_comparison.png", dpi=300, bbox_inches="tight")
 
-# Show chart
+# Display chart
 plt.show()
